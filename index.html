@@ -1,14 +1,48 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>生成文件示例</title>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <h1>生成文件示例</h1>
 
-        <asp:Button ID="btnMethodOne" runat="server" Text="Download Method One" onclick="btnMethodOne_Click" />
-        <asp:Button ID="btnMethodTwo" runat="server" Text="Download Method Two" onclick="btnMethodTwo_Click" />
+    <form id="fileGeneratorForm">
+        <label for="fileName">文件名：</label>
+        <input type="text" id="fileName" name="fileName" required><br><br>
+
+        <label for="fileContent">文件内容：</label>
+        <textarea id="fileContent" name="fileContent" required></textarea><br><br>
+
+        <button type="submit">生成文件</button>
     </form>
+
+    <div id="downloadLink" style="display: none;">
+        <h3>文件已生成：</h3>
+        <a id="downloadButton" download="generated-file.txt">下载文件</a>
+    </div>
+
+    <script>
+        document.getElementById('fileGeneratorForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const fileName = document.getElementById('fileName').value;
+            const fileContent = document.getElementById('fileContent').value;
+
+            // Create a Blob with the file content
+            const blob = new Blob([fileContent], { type: 'text/plain' });
+
+            // Create a download link
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = URL.createObjectURL(blob);
+            a.download = fileName;
+
+            // Append the link to the DOM
+            document.getElementById('downloadLink').style.display = 'block';
+            document.getElementById('downloadButton').appendChild(a);
+
+            // Trigger a click event to start the download
+            a.click();
+        });
+    </script>
 </body>
 </html>
