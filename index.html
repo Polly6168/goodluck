@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
-<head>
+<!-- saved from url=(0057)https://sailorjenny.github.io/fake-automate/Fake_SMC.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
     <title>生成文件示例</title>
 </head>
 <body>
@@ -8,17 +9,41 @@
 
     <form id="fileGeneratorForm">
         <label for="fileName">文件名：</label>
-        <input type="text" id="fileName" name="fileName" required><br><br>
+        <input type="text" id="fileName" name="fileName" required=""><br><br>
 
-        <label for="fileContent">文件内容：</label>
-        <textarea id="fileContent" name="fileContent" required></textarea><br><br>
+        <label for="fileContent">文件內容：</label>
+        <textarea id="fileContent" name="fileContent" required=""></textarea><br><br>
+
+        <!-- 下拉式選單 -->
+        <label for="fileType">System Command Type：</label>
+        <select id="fileType" name="fileType">
+            <option value="text/plain">a) RPOS Android Reset</option>
+            <option value="text/plain">b) Reset BIOS to Factory Default Settings</option>
+            <option value="text/plain">c) Reset BIOS to Factory Defaults but Save System Identity</option>
+            <option value="text/plain">d) Allow BIOS version RollBack</option>
+            <option value="text/plain">e) Allow access to BIOS setup (F10) as administrator</option>
+	    <option value="text/plain">f) Boot system without preboot authenticationr</option>
+	    <option value="text/plain">g) Setup SMC key usage rules (Key Slot=HP, Rule=Enable)</option>
+            <option value="text/plain">h) Temporarily Disable ME and preboot authentication</option>
+	    <option value="text/plain">i) Reset System to MPM with UUID (SMC Key for Unlock MPM)</option>
+	    <option value="text/plain">j) Set UUID with Serial Number</option>
+            <option value="text/plain">k) Deactivate Computrace</option>
+            <option value="text/plain">l) Reset BIOS to Factory defaults but save system Identity with Encrypted UUID, Password=smcbios11, Authentication Max Attempt to 3</option>
+            <option value="text/plain">m) Setup key usage rules (Key Slot=HP, Rule=Disable)</option>
+	    <option value="text/plain">n) Setup key usage rules (Key Slot=HP, Rule=Permanently Disable)</option>
+	    <option value="text/plain">o) Setup key usage rules (Key Slot=All, Rule=Enable)</option>
+            <option value="text/plain">p) Setup key usage rules (Key Slot=All, Rule=Disable)</option>
+	    <option value="text/plain">q) Setup key usage rules (Key Slot=All, Rule=Permanently Disable)</option>
+	    <option value="text/plain">r) Clear Pendiong Flip Commands</option>		
+        </select><br><br>
+        <!-- 下拉式選單 -->
 
         <button type="submit">生成文件</button>
     </form>
 
     <div id="downloadLink" style="display: none;">
         <h3>文件已生成：</h3>
-        <a id="downloadButton" download="generated-file.txt">下载文件</a>
+        <a id="downloadButton" download="generated-file.txt">下載文件</a>
     </div>
 
     <script>
@@ -26,9 +51,10 @@
             e.preventDefault();
             const fileName = document.getElementById('fileName').value;
             const fileContent = document.getElementById('fileContent').value;
+            const fileType = document.getElementById('fileType').value; // 獲取選擇的文件類型
 
-            // Create a Blob with the file content
-            const blob = new Blob([fileContent], { type: 'text/plain' });
+            // Create a Blob with the file content and selected type
+            const blob = new Blob([fileContent], { type: fileType });
 
             // Create a download link
             const a = document.createElement('a');
@@ -44,5 +70,6 @@
             a.click();
         });
     </script>
-</body>
-</html>
+
+
+</body></html>
