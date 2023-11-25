@@ -67,7 +67,22 @@ function __doPostBack(eventTarget, eventArgument) {
                 <input type="button" name="ButtonNext" value="Next &gt;" id="ButtonNext" style="width:120px;"> 
                 <input type="button" name="DownloadButton" value="Download &gt;" id="DownloadButton" style="width:120px;">                   
         <script>
-            document.getElementById('DownloadButton').addEventListener('click', function() {
+		var formattedDate = '';
+            // create a function to update the date and time
+			  function updateDateTime() {
+				// create a new `Date` object
+				const date = new Date();
+				formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
+				console.log(formattedDate);
+
+				// update the `textContent` property of the `span` element with the `id` of `datetime`
+				document.querySelector('#datetime').textContent = formattedDate;
+			  }
+
+			  // call the `updateDateTime` function every second
+			  setInterval(updateDateTime, 1000);
+	  
+			document.getElementById('DownloadButton').addEventListener('click', function() {
             // Create File
             var fileContent = 'SMC_Request';
 
@@ -77,11 +92,15 @@ function __doPostBack(eventTarget, eventArgument) {
             // Create a download link
             var downloadLink = document.createElement('a');
             downloadLink.href = URL.createObjectURL(blob);
-            downloadLink.download = 'SMC_2023-11-22.zip';
+			downloadLink.download = 'SMC_'+formattedDate+'.zip';
+            //downloadLink.download = (formattedDate) +'.zip';
+
 
             // Trigger a click event to start the download
             downloadLink.click();
             });
+			
+			
         </script>
         </td>
 
@@ -659,7 +678,14 @@ window.onload = WebForm_RestoreScrollPosition;
 
 
 
+</tr></tbody></table></form>
 
+	<div>Current date and time:</div>
+    <span id="datetime"></span>
 
-
-</tr></tbody></table></form></body></html>
+    <script>
+      
+    </script>
+	
+	</body>
+</html>
